@@ -1,5 +1,6 @@
-package com.pawfor.vertx.microservice.service;
+package com.pawfor.vertx.microservice.verticle;
 
+import com.pawfor.vertx.microservice.authorization.Authorization;
 import com.pawfor.vertx.microservice.domain.Item;
 import com.pawfor.vertx.microservice.domain.User;
 import com.pawfor.vertx.microservice.security.EncryptingPassword;
@@ -9,9 +10,6 @@ import io.vertx.core.impl.logging.Logger;
 import io.vertx.core.impl.logging.LoggerFactory;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.auth.PubSecKeyOptions;
-import io.vertx.ext.auth.jwt.JWTAuth;
-import io.vertx.ext.auth.jwt.JWTAuthOptions;
 import io.vertx.ext.mongo.FindOptions;
 import io.vertx.ext.mongo.MongoClient;
 import io.vertx.ext.web.Router;
@@ -21,9 +19,9 @@ import io.vertx.ext.web.handler.BodyHandler;
 import java.util.List;
 import java.util.UUID;
 
-public class UserService extends AbstractVerticle {
+public class UserVerticle extends AbstractVerticle {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserVerticle.class);
     private MongoClient client;
     private String token;
     private String userId;
@@ -56,7 +54,7 @@ public class UserService extends AbstractVerticle {
 
 
     //users service
-    private void registerUser(RoutingContext routingContext)  {
+    public void registerUser(RoutingContext routingContext)  {
         EncryptingPassword encrypt = new EncryptingPassword();
         JsonObject jsonBody = routingContext.getBodyAsJson();
 
@@ -83,13 +81,9 @@ public class UserService extends AbstractVerticle {
         });
     }
 
-    private void loginUser(RoutingContext routingContext)  {
+    public void loginUser(RoutingContext routingContext)  {
         EncryptingPassword encrypt = new EncryptingPassword();
-
-        final JWTAuth provider = JWTAuth.create(vertx, new JWTAuthOptions()
-                .addPubSecKey(new PubSecKeyOptions()
-                        .setAlgorithm("HS256")
-                        .setBuffer("login")));
+        Authorization authorization = new Authorization();
 
         JsonObject jsonBody = routingContext.getBodyAsJson();
 
@@ -114,7 +108,7 @@ public class UserService extends AbstractVerticle {
             try {
                 List<JsonObject> objects = res.result();
                 if (objects != null && objects.size() != 0) {
-                    token = provider.generateToken(new JsonObject());
+                    token = authorization.createToken();
                     routingContext.response()
                             .setStatusCode(200)
                             .putHeader("content-type", "application/json")
@@ -138,7 +132,7 @@ public class UserService extends AbstractVerticle {
         });
     }
     //Items service
-    private void addUserItem(RoutingContext routingContext) {
+    public void addUserItem(RoutingContext routingContext) {
 
         JsonObject jsonBody = routingContext.getBodyAsJson();
 
@@ -177,7 +171,7 @@ public class UserService extends AbstractVerticle {
         });
     }
 
-    private void getAllUserItems(RoutingContext routingContext)  {
+    public void getAllUserItems(RoutingContext routingContext)  {
 
         JsonObject ownerJson = new JsonObject();
         ownerJson.put("ownerId", userId);

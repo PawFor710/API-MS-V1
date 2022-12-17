@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal" created-in="IU-221.5591.52">
+    <data-source name="MicroserviceRecruitment@localhost" uuid="be368dc9-f3ac-4b81-84da-1cf07717ef3a">
+      <database-info product="Mongo DB" version="6.0.3" jdbc-version="4.2" driver-name="MongoDB JDBC Driver" driver-version="1.17" dbms="MONGO" exact-version="6.0.3" exact-driver-version="1.17" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <auth-provider>no-auth</auth-provider>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema" qname="@" />
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
+  </component>
+</project>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MicroserviceRecruitment@localhost">
+  <database-model serializer="dbm" dbms="MONGO" family-id="MONGO" format-version="4.39">
+    <root id="1">
+      <ServerVersion>6.0.3</ServerVersion>
+    </root>
+    <schema id="2" parent="1" name="MicroserviceRecruitment">
+      <Current>1</Current>
+    </schema>
+    <schema id="3" parent="1" name="MongoTest"/>
+    <schema id="4" parent="1" name="PawFor"/>
+    <schema id="5" parent="1" name="admin"/>
+    <schema id="6" parent="1" name="config"/>
+    <schema id="7" parent="1" name="local"/>
+    <table id="8" parent="2" name="items"/>
+    <table id="9" parent="2" name="users"/>
+    <column id="10" parent="8" name="_id">
+      <DataType>ObjectId|12s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="11" parent="8" name="name">
+      <DataType>String|12s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="12" parent="8" name="id">
+      <DataType>String|12s</DataType>
+      <Position>2</Position>
+    </column>
+    <column id="13" parent="8" name="ownerId">
+      <DataType>Int64|12s</DataType>
+      <Position>2</Position>
+    </column>
+    <column id="14" parent="9" name="_id">
+      <DataType>ObjectId|12s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="15" parent="9" name="id">
+      <DataType>String|12s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="16" parent="9" name="password">
+      <DataType>String|12s</DataType>
+      <Position>1</Position>
+    </column>
+    <column id="17" parent="9" name="login">
+      <DataType>String|12s</DataType>
+      <Position>2</Position>
+    </column>
+  </database-model>
+</dataSource>
